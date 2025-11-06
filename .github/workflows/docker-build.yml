@@ -40,7 +40,7 @@ jobs:
           with:
             host: ${{ secrets.EC2_HOST }}
             username: ${{ secrets.EC2_USER }}
-            key: ${{ secrets.EC2_SSH_KEY }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
             script: |
               echo "🚀 Starting deployment on EC2..."
               docker pull ahmed1salem/teamavailtest-web:latest
