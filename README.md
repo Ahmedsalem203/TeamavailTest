@@ -53,6 +53,7 @@ To push the Docker image to a container registry like Docker Hub, follow these s
     docker login
     ```
 
+
 2.  **Tag the image:**
 
     Replace `your-dockerhub-username` with your Docker Hub username.
