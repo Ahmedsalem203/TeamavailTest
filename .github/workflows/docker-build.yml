@@ -42,9 +42,8 @@ jobs:
             username: ${{ secrets.EC2_USER }}
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             script: |
-              echo "🚀 Starting deployment on EC2..."
               docker pull ahmed1salem/teamavailtest-web:latest
               docker stop teamavailtest-web || true
               docker rm teamavailtest-web || true
               docker run -d -p 80:3000 --name teamavailtest-web ahmed1salem/teamavailtest-web:latest
-              echo "✅ Deployment completed successfully!"
+              echo "Deployment completed successfully!"
