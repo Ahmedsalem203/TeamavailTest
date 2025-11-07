@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamavail-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: teamavail
+  template:
+    metadata:
+      labels:
+        app: teamavail
+    spec:
+      containers:
+        - name: teamavail-container
+          image: ahmed1salem/teamavailtest-web:latest
+          ports:
+            - containerPort: 3000
