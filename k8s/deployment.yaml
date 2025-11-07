@@ -1,9 +1,10 @@
+# deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: teamavail-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: teamavail
@@ -13,7 +14,14 @@ spec:
         app: teamavail
     spec:
       containers:
-        - name: teamavail-container
+        - name: teamavail
           image: ahmed1salem/teamavailtest-web:latest
           ports:
             - containerPort: 3000
+          volumeMounts:
+            - mountPath: /app/output
+              name: output-volume
+      volumes:
+        - name: output-volume
+          persistentVolumeClaim:
+            claimName: output-pvc
