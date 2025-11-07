@@ -7,18 +7,18 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: self-hosted   # ده المهم، عشان يشتغل على جهازك المحلي
+    runs-on: self-hosted   # مهم: يشتغل على جهازك المحلي
 
     steps:
-      # Checkout repo
-      - uses: actions/checkout@v3
+      # 1️⃣ Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      # Build Docker image
+      # 2️⃣ Build Docker image
       - name: Build Docker image
-        run: |
-          docker build -t ahmed1salem/teamavailtest-web:latest .
+        run: docker build -t ahmed1salem/teamavailtest-web:latest .
 
-      # Push Docker image to Docker Hub
+      # 3️⃣ Push Docker image to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -28,22 +28,27 @@ jobs:
       - name: Push Docker image
         run: docker push ahmed1salem/teamavailtest-web:latest
 
-      # Set up kubectl
+      # 4️⃣ Set up kubectl
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
         with:
           version: 'latest'
 
-      # Use minikube context
+      # 5️⃣ Use Minikube context
       - name: Use minikube context
         run: kubectl config use-context minikube
 
-      # Deploy to minikube
+      # 6️⃣ Deploy Kubernetes manifests
       - name: Deploy to Kubernetes
         run: |
+          kubectl apply -f k8s/persistent-volume.yaml
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
+          kubectl apply -f k8s/ingress.yaml
 
-      # Optional: Check pods status
-      - name: Check Pods
-        run: kubectl get pods
+      # 7️⃣ Optional: Check pods and services
+      - name: Check Cluster Status
+        run: |
+          kubectl get pods
+          kubectl get svc
+          kubectl get ingress
