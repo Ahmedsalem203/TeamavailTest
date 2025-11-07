@@ -40,11 +40,7 @@ jobs:
 
       # 6️⃣ Deploy Kubernetes manifests
       - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f k8s/persistent-volume.yaml
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
-          kubectl apply -f k8s/ingress.yaml
+        run: kubectl apply -f k8s/
 
       # 7️⃣ Optional: Check pods and services
       - name: Check Cluster Status
