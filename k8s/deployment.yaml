@@ -21,6 +21,20 @@ spec:
           volumeMounts:
             - mountPath: /app/output
               name: output-volume
+          livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 20
+
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
       volumes:
         - name: output-volume
           persistentVolumeClaim:
