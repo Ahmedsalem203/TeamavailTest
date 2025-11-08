@@ -33,6 +33,16 @@ app.post('/save-history', (req, res) => {
     }
   });
 });
+app.get('/health', (req, res) => {
+  res.status(200).send('Alive');
+});
+
+
+app.get('/ready', (req, res) => {
+
+  res.status(200).send('Ready');
+});
+
 
 // Start server
 app.listen(PORT, () => {
